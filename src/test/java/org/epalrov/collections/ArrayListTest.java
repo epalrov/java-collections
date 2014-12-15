@@ -1,5 +1,5 @@
 /*
- * LinkedListTest.java - unit test for Linked List
+ * ArrayListTest.java - unit test for Array List
  *
  * Copyright (C) 2014 Paolo Rovelli
  *
@@ -19,9 +19,9 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
- * Unit test for simple LinkedList.
+ * Unit test for ArrayList.
  */
-public class LinkedListTest 
+public class ArrayListTest 
 	extends TestCase
 {
 	/**
@@ -29,7 +29,7 @@ public class LinkedListTest
 	 *
 	 * @param testName name of the test case
 	 */
-	public LinkedListTest(String testName) {
+	public ArrayListTest(String testName) {
 		super(testName);
 	}
 
@@ -37,7 +37,7 @@ public class LinkedListTest
 	 * @return the suite of tests being tested
 	 */
 	public static Test suite() {
-		return new TestSuite(LinkedListTest.class);
+		return new TestSuite(ArrayListTest.class);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class LinkedListTest
 	 */
 	public void testLinkedList() {
 		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
-		LinkedList<String> l = new LinkedList<String>();
+		ArrayList<String> l = new ArrayList<String>();
 
 		// add
 		for (int i = 0; i < a.length; i++)
@@ -65,7 +65,8 @@ public class LinkedListTest
 
 		// remove
 		for (int i = 0; i < a.length; i++)
-			assertTrue(l.remove(a[i]));
+			assertThat(l.remove(0), is(a[i]));
+			//assertTrue(l.remove(a[i]));
 		assertTrue(l.isEmpty());
 
 		// add all
