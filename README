@@ -1,0 +1,12 @@
+collections:    example of impelmentation for Java Collections.
+
+                Java Collections represents a unified framework for storing and
+                manipulating groups of object.
+                This implementations for the fundamental collections (dynamic
+                arrays, linked lists, etc.), compliant to the standard interface
+                of the Java collection Framework (java.util), would be a way to
+                learn about Java Generics.
+
+author:         Paolo Rovelli
+contact:        paolorovelli@yahoo.it
+
