@@ -13,6 +13,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.ListIterator;
 
 import static org.junit.Assert.assertThat;
@@ -45,7 +46,7 @@ public class ArrayListTest
 	 */
 	public void testLinkedList() {
 		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
-		ArrayList<String> l = new ArrayList<String>();
+		List<String> l = new ArrayList<String>();
 
 		// add
 		for (int i = 0; i < a.length; i++)
@@ -77,7 +78,7 @@ public class ArrayListTest
 		ListIterator<String> it1 = l.listIterator();
 		for (int i = 0; it1.hasNext(); i++)
 			assertThat(it1.next(), is(a[i]));
-		ListIterator<String> it2 = l.listIterator(l.size() - 1);
+		ListIterator<String> it2 = l.listIterator(l.size());
 		for (int i = a.length - 1; it2.hasPrevious(); i--)
 			assertThat(it2.previous(), is(a[i]));
 

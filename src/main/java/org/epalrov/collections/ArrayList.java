@@ -193,7 +193,7 @@ public class ArrayList<E> implements List<E>
 		private int nextIndex;
 
 		ListItr(int index) {
-			if (index < 0 || index >= size) {
+			if (index < 0 || index > size) {
 				throw new IndexOutOfBoundsException(
 					"Index: "+index+", Size: "+size);
 			}
@@ -216,12 +216,12 @@ public class ArrayList<E> implements List<E>
 		}
 
 		public boolean hasPrevious() {
-			return nextIndex == -1 ? false : true;
+			return nextIndex == 0 ? false : true;
 		}
 
 		public E previous() {
-			currIndex = nextIndex;
 			nextIndex--;
+			currIndex = nextIndex;
 			return (E)array[currIndex]; // unchecked cast
 		}
 

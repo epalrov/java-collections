@@ -244,8 +244,8 @@ public class LinkedList<E> implements List<E>
 			if (index >= 0 && index < size/2) {
 				for (int i = 0; i <= index; i++)
 					nextNode = nextNode.next;
-			} else if (index < size && index >= size/2) {
-				for (int i = size; i > index; i--)
+			} else if (index <= size && index >= size/2) {
+				for (int i = size; i >= index; i--)
 					nextNode = nextNode.prev;
 			} else {
 				throw new IndexOutOfBoundsException(
@@ -255,7 +255,7 @@ public class LinkedList<E> implements List<E>
 		}
 
 		public boolean hasNext() {
-			return nextNode == head ? false : true;
+			return nextIndex == size ? false : true;
 		}
 
 		public E next() {
@@ -270,7 +270,7 @@ public class LinkedList<E> implements List<E>
 		}
 
 		public boolean hasPrevious() {
-			return nextNode == head ? false : true;
+			return nextIndex == 0 ? false : true;
 		}
 
 		public E previous() {
