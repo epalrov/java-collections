@@ -12,7 +12,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -62,7 +61,7 @@ public class LinkedListTest
 		}
 
 		// equals
-		assertThat(l.equals(Arrays.asList(a)), is(true));
+		assertThat(l.equals(java.util.Arrays.asList(a)), is(true));
 
 		// remove
 		for (int i = 0; i < a.length; i++)
@@ -70,7 +69,7 @@ public class LinkedListTest
 		assertTrue(l.isEmpty());
 
 		// add all
-		l.addAll(Arrays.asList(a));
+		l.addAll(java.util.Arrays.asList(a));
 		assertThat(l.size(), is(a.length));
 
 		// iterators
@@ -80,6 +79,6 @@ public class LinkedListTest
 		ListIterator<String> it2 = l.listIterator(l.size());
 		for (int i = a.length - 1; it2.hasPrevious(); i--)
 			assertThat(it2.previous(), is(a[i]));
-
 	}
+
 }

@@ -32,6 +32,9 @@ public class LinkedList<E> implements List<E>
 	private ListNode<E> head;
 	private int size;
 
+	/**
+	 * Constructs an empty <tt>LinkedList</tt>
+	 */
 	public LinkedList() {
 		head = new ListNode<E>(null, null, null);
 		head.next = head;
@@ -80,7 +83,7 @@ public class LinkedList<E> implements List<E>
 				n = n.prev;
 		} else {
 			throw new IndexOutOfBoundsException(
-				"Index: "+index+", Size: "+size);
+				"Index: " + index + ", Size: " + size);
 		}
 		ListNode<E> node = new ListNode<E>(e, n, n.prev);
 		n.prev.next = node;
@@ -101,7 +104,7 @@ public class LinkedList<E> implements List<E>
 				n = n.prev;
 		} else {
 			throw new IndexOutOfBoundsException(
-				"Index: "+index+", Size: "+size);
+				"Index: " + index + ", Size: " + size);
 		}
 		return n.elem;
 	}
@@ -120,11 +123,11 @@ public class LinkedList<E> implements List<E>
 				n = n.prev;
 		} else {
 			throw new IndexOutOfBoundsException(
-				"Index: "+index+", Size: "+size);
+				"Index: " + index + ", Size: " + size);
 		}
-		E elem = n.elem;
+		E oldElem = n.elem;
 		n.elem = e;
-		return elem;
+		return oldElem;
 	}
 
 	/**
@@ -140,7 +143,7 @@ public class LinkedList<E> implements List<E>
 				n = n.prev;
 		} else {
 			throw new IndexOutOfBoundsException(
-				"Index: "+index+", Size: "+size);
+				"Index: " + index + ", Size: " + size);
 		}
 		n.next.prev = n.prev;
 		n.prev.next = n.next;
@@ -211,14 +214,16 @@ public class LinkedList<E> implements List<E>
 	}
 
 	/**
-	 * Returns an iterator over the elements in this list in proper sequence.
+	 * Returns an iterator over the elements in this list in proper
+	 * sequence.
 	 */
 	public Iterator<E> iterator() {
 		return new ListItr(0);
 	}
 
 	/**
-	 * Returns a list iterator over the elements in this list in proper sequence.
+	 * Returns a list iterator over the elements in this list in proper
+	 * sequence.
 	 */
 	public ListIterator<E> listIterator() {
 		return new ListItr(0);
@@ -249,7 +254,7 @@ public class LinkedList<E> implements List<E>
 					nextNode = nextNode.prev;
 			} else {
 				throw new IndexOutOfBoundsException(
-					"Index: "+index+", Size: "+size);
+					"Index: " + index + ", Size: " + size);
 			}
 			nextIndex = index;
 		}
@@ -309,8 +314,8 @@ public class LinkedList<E> implements List<E>
 	}
 
 	/**
-	 * Returns an array containing all of the elements in this list in proper
-	 * sequence (from first to last element).
+	 * Returns an array containing all of the elements in this list in
+	 * proper sequence (from first to last element).
 	 */
 	public Object[] toArray() {
 		Object[] o = new Object[size];
@@ -344,13 +349,13 @@ public class LinkedList<E> implements List<E>
 	}
 
 	/**
-	 * Returns <tt>true</tt> if this list contains all of the elements of the
-	 * specified collection.
+	 * Returns <tt>true</tt> if this list contains all of the elements of
+	 * the specified collection.
 	 */
 	public boolean containsAll(Collection<? extends Object> c) {
-		Iterator<? extends Object> it = c.iterator();
-		while (it.hasNext())
-			if (!contains(it.next()))
+		Iterator<? extends Object> i = c.iterator();
+		while (i.hasNext())
+			if (!contains(i.next()))
 				return false;
 
 		return true;
@@ -362,9 +367,10 @@ public class LinkedList<E> implements List<E>
 	 */
 	public boolean addAll(Collection<? extends E> c) {
 		ListNode<E> n = head;
-		Iterator<? extends E> it = c.iterator();
-		while (it.hasNext()) {
-			ListNode<E> node = new ListNode<E>((E)it.next(), n, n.prev);
+		Iterator<? extends E> i = c.iterator();
+		while (i.hasNext()) {
+			ListNode<E> node =
+				new ListNode<E>((E)i.next(), n, n.prev);
 			n.prev.next = node;
 			n.prev = node;
 			size++;
@@ -388,12 +394,13 @@ public class LinkedList<E> implements List<E>
 				n = n.prev;
 		} else {
 			throw new IndexOutOfBoundsException(
-				"Index: "+index+", Size: "+size);
+				"Index: " + index + ", Size: " + size);
 		}
 		
-		Iterator<? extends E> it = c.iterator();
-		while (it.hasNext()) {
-			ListNode<E> node = new ListNode<E>((E)it.next(), n, n.prev);
+		Iterator<? extends E> i = c.iterator();
+		while (i.hasNext()) {
+			ListNode<E> node =
+				new ListNode<E>((E)i.next(), n, n.prev);
 			n.prev.next = node;
 			n.prev = node;
 			size++;
@@ -436,10 +443,10 @@ public class LinkedList<E> implements List<E>
 	}
 
 	/**
-	 * Not implemented ...
+	 * Not implemented, throws an <tt>UnsupportedOperationException</tt>
 	 */
 	public List<E> subList(int fromIndex, int toIndex) {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -458,31 +465,31 @@ public class LinkedList<E> implements List<E>
 			return false;
 
 		// check all list elements
-		Iterator<E> eIterator = iterator();
-		Iterator<?> oIterator = ((List<?>) o).iterator();
-		while (eIterator.hasNext() && oIterator.hasNext()) {
-			E elem = eIterator.next();
-			Object obj = oIterator.next();
+		Iterator<E> i = iterator();
+		Iterator<?> j = ((List<?>) o).iterator();
+		while (i.hasNext() && j.hasNext()) {
+			E elem = i.next();
+			Object obj = j.next();
 			if (!(obj.equals(elem) || (obj == null && elem == null)))
 				return false;
 		}
 
 		// check list size
-		return !(eIterator.hasNext() || oIterator.hasNext());
+		return !(i.hasNext() || j.hasNext());
 	}
 
 	/**
 	 * Returns the hash code value for this list.
 	 */
 	public int hashCode() {
-		int hashCode = 1;
-		Iterator<E> eIterator = iterator();
-		while (eIterator.hasNext()) {
-			E elem = eIterator.next();
-			hashCode = 31*hashCode + (elem == null ? 0 : elem.hashCode());
+		int hash = 1;
+		Iterator<E> i = iterator();
+		while (i.hasNext()) {
+			E elem = i.next();
+			hash = 31*hash + (elem == null ? 0 : elem.hashCode());
 		}
 
-		return hashCode;
+		return hash;
 	}
 
 	private static class ListNode<E> {
@@ -490,10 +497,10 @@ public class LinkedList<E> implements List<E>
 		ListNode<E> next;
 		ListNode<E> prev;
 
-		ListNode(E elem, ListNode<E> next, ListNode<E> prev) {
-			this.elem = elem;
-			this.next = next;
-			this.prev = prev;
+		ListNode(E e, ListNode<E> n, ListNode<E> p) {
+			elem = e;
+			next = n;
+			prev = p;
 		}
 	}
 }

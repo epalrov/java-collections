@@ -91,9 +91,9 @@ public class ArrayList<E> implements List<E>
 			throw new IndexOutOfBoundsException(
 				"Index: "+index+", Size: "+size);
 		}
-		E elem = (E)array[index]; // unchecked cast
+		E oldElem = (E)array[index]; // unchecked cast
 		array[index] = e;
-		return elem;
+		return oldElem;
 	}
 
 	/**
@@ -104,11 +104,11 @@ public class ArrayList<E> implements List<E>
 			throw new IndexOutOfBoundsException(
 				"Index: "+index+", Size: "+size);
 		}
-		E elem = (E)array[index]; // unchecked cast
+		E oldElem = (E)array[index]; // unchecked cast
 		arrayRemove(index, 1);
 		arrayResize(size - 1);
 		size--;
-		return elem;
+		return oldElem;
 	}
 
 	/**
@@ -116,8 +116,9 @@ public class ArrayList<E> implements List<E>
 	 * if it is present.
 	 */
 	public boolean remove(Object o) {
+		Object[] a = array;
                 for (int i = 0; i < size; i++) {
-                        if (o.equals(array[i]) || (o == null && array[i] == null)) {
+                        if (o.equals(a[i]) || (o == null && a[i] == null)) {
 				arrayRemove(i, 1);
 				arrayResize(size - 1);
 				size--;
@@ -142,8 +143,9 @@ public class ArrayList<E> implements List<E>
 	 * in this list, or -1 if this list does not contain the element.
 	 */
 	public int indexOf(Object o) {
+		Object[] a = array;
 		for (int i = 0; i < size; i++) {
-			if (o.equals(array[i]) || (o == null && array[i] == null))
+			if (o.equals(a[i]) || (o == null && a[i] == null))
 				return i;
 		}
 		return -1;
@@ -154,8 +156,9 @@ public class ArrayList<E> implements List<E>
 	 * in this list, or -1 if this list does not contain the element.
 	 */
 	public int lastIndexOf(Object o) {
+		Object[] a = array;
 		for (int i = size - 1; i >= 0; i--) {
-			if (o.equals(array[i]) || (o == null && array[i] == null))
+			if (o.equals(a[i]) || (o == null && a[i] == null))
 				return i;
 		}
 		return -1;
@@ -166,14 +169,16 @@ public class ArrayList<E> implements List<E>
 	}
 
 	/**
-	 * Returns an iterator over the elements in this list in proper sequence.
+	 * Returns an iterator over the elements in this list in proper
+	 * sequence.
 	 */
 	public Iterator<E> iterator() {
 		return new ListItr(0);
 	}
 
 	/**
-	 * Returns a list iterator over the elements in this list in proper sequence.
+	 * Returns a list iterator over the elements in this list in proper
+	 * sequence.
 	 */
 	public ListIterator<E> listIterator() {
 		return new ListItr(0);
@@ -250,8 +255,8 @@ public class ArrayList<E> implements List<E>
 	}
 
 	/**
-	 * Returns an array containing all of the elements in this list in proper
-	 * sequence (from first to last element).
+	 * Returns an array containing all of the elements in this list in
+	 * proper sequence (from first to last element).
 	 */
 	public Object[] toArray() {
 		Object[] o = new Object[size];
@@ -279,13 +284,13 @@ public class ArrayList<E> implements List<E>
 	}
 
 	/**
-	 * Returns <tt>true</tt> if this list contains all of the elements of the
-	 * specified collection.
+	 * Returns <tt>true</tt> if this list contains all of the elements of
+	 * the specified collection.
 	 */
 	public boolean containsAll(Collection<? extends Object> c) {
-		Iterator<? extends Object> it = c.iterator();
-		while (it.hasNext())
-			if (!contains(it.next()))
+		Iterator<? extends Object> i = c.iterator();
+		while (i.hasNext())
+			if (!contains(i.next()))
 				return false;
 
 		return true;
@@ -296,10 +301,10 @@ public class ArrayList<E> implements List<E>
 	 * this list.
 	 */
 	public boolean addAll(Collection<? extends E> c) {
-		Iterator<? extends E> it = c.iterator();
-		while (it.hasNext()) {
+		Iterator<? extends E> i = c.iterator();
+		while (i.hasNext()) {
 			arrayResize(size + 1);
-			array[size] = (E)it.next();
+			array[size] = (E)i.next();
 			size++;
 		}
 		return true;
@@ -315,11 +320,11 @@ public class ArrayList<E> implements List<E>
 				"Index: "+index+", Size: "+size);
 		}
 		
-		Iterator<? extends E> it = c.iterator();
-		while (it.hasNext()) {
+		Iterator<? extends E> i = c.iterator();
+		while (i.hasNext()) {
 			arrayResize(size + 1);
 			arrayInsert(index, 1);
-			array[index] = (E)it.next();
+			array[index] = (E)i.next();
 			size++;
 		}
 		return true;
@@ -355,12 +360,12 @@ public class ArrayList<E> implements List<E>
 		return true;
 	}
 
-	/**
-	 * Not implemented ...
-	 */
-	public List<E> subList(int fromIndex, int toIndex) {
-		return null;
-	}
+        /**
+         * Not implemented, throws an <tt>UnsupportedOperationException</tt>
+         */
+        public List<E> subList(int fromIndex, int toIndex) {
+                throw new UnsupportedOperationException();
+        }
 
 	/**
 	 * Compares the specified object with this list for equality; returns
@@ -378,32 +383,34 @@ public class ArrayList<E> implements List<E>
 			return false;
 
 		// check all list elements
-		Iterator<E> eIterator = iterator();
-		Iterator<?> oIterator = ((List<?>) o).iterator();
-		while (eIterator.hasNext() && oIterator.hasNext()) {
-			E elem = eIterator.next();
-			Object obj = oIterator.next();
+		Iterator<E> i = iterator();
+		Iterator<?> j = ((List<?>) o).iterator();
+		while (i.hasNext() && j.hasNext()) {
+			E elem = i.next();
+			Object obj = j.next();
 			if (!(obj.equals(elem) || (obj == null && elem == null)))
 				return false;
 		}
 
 		// check list size
-		return !(eIterator.hasNext() || oIterator.hasNext());
+		return !(i.hasNext() || j.hasNext());
 	}
 
 	/**
 	 * Returns the hash code value for this list.
 	 */
 	public int hashCode() {
-		int hashCode = 1;
-		Iterator<E> eIterator = iterator();
-		while (eIterator.hasNext()) {
-			E elem = eIterator.next();
-			hashCode = 31*hashCode + (elem == null ? 0 : elem.hashCode());
+		int hash = 1;
+		Iterator<E> i = iterator();
+		while (i.hasNext()) {
+			E elem = i.next();
+			hash = 31*hash + (elem == null ? 0 : elem.hashCode());
 		}
 
-		return hashCode;
+		return hash;
 	}
+
+	// internal
 
 	private void arrayResize(int len) {
 		Object[] a = array;
