@@ -118,7 +118,8 @@ public class ArrayList<E> implements List<E>
 	public boolean remove(Object o) {
 		Object[] a = array;
                 for (int i = 0; i < size; i++) {
-                        if (o.equals(a[i]) || (o == null && a[i] == null)) {
+                        if ((o != null && o.equals(a[i])) ||
+					(o == null && a[i] == null)) {
 				arrayRemove(i, 1);
 				arrayResize(size - 1);
 				size--;
@@ -145,7 +146,8 @@ public class ArrayList<E> implements List<E>
 	public int indexOf(Object o) {
 		Object[] a = array;
 		for (int i = 0; i < size; i++) {
-			if (o.equals(a[i]) || (o == null && a[i] == null))
+			if ((o != null && o.equals(a[i])) ||
+					(o == null && a[i] == null))
 				return i;
 		}
 		return -1;
@@ -158,7 +160,8 @@ public class ArrayList<E> implements List<E>
 	public int lastIndexOf(Object o) {
 		Object[] a = array;
 		for (int i = size - 1; i >= 0; i--) {
-			if (o.equals(a[i]) || (o == null && a[i] == null))
+			if ((o != null && o.equals(a[i])) ||
+					(o == null && a[i] == null))
 				return i;
 		}
 		return -1;
@@ -173,7 +176,7 @@ public class ArrayList<E> implements List<E>
 	 * sequence.
 	 */
 	public Iterator<E> iterator() {
-		return new ListItr(0);
+		return new ArrayListIterator(0);
 	}
 
 	/**
@@ -181,7 +184,7 @@ public class ArrayList<E> implements List<E>
 	 * sequence.
 	 */
 	public ListIterator<E> listIterator() {
-		return new ListItr(0);
+		return new ArrayListIterator(0);
 	}
 
 	/**
@@ -189,15 +192,15 @@ public class ArrayList<E> implements List<E>
 	 * sequence), starting at the specified position in the list.
 	 */
 	public ListIterator<E> listIterator(int index) {
-		return new ListItr(index);
+		return new ArrayListIterator(index);
 	}
 
-	private class ListItr implements ListIterator<E> {
+	private class ArrayListIterator implements ListIterator<E> {
 
 		private int currIndex;
 		private int nextIndex;
 
-		ListItr(int index) {
+		ArrayListIterator(int index) {
 			if (index < 0 || index > size) {
 				throw new IndexOutOfBoundsException(
 					"Index: "+index+", Size: "+size);
@@ -388,7 +391,8 @@ public class ArrayList<E> implements List<E>
 		while (i.hasNext() && j.hasNext()) {
 			E elem = i.next();
 			Object obj = j.next();
-			if (!(obj.equals(elem) || (obj == null && elem == null)))
+			if (!((obj != null && obj.equals(elem)) ||
+					(obj == null && elem == null)))
 				return false;
 		}
 

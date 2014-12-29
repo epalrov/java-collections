@@ -8,40 +8,38 @@
 
 package org.epalrov.collections;
 
+import java.util.List;
+import java.util.Iterator;
+import java.util.ListIterator;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
- * Unit test for simple LinkedList.
+ * Unit test for LinkedList.
  */
-public class LinkedListTest 
-	extends TestCase
+public class LinkedListTest extends TestCase
 {
 	/**
 	 * Create the test case
-	 *
-	 * @param testName name of the test case
 	 */
 	public LinkedListTest(String testName) {
 		super(testName);
 	}
 
 	/**
-	 * @return the suite of tests being tested
+	 * Return the suite of tests being tested
 	 */
 	public static Test suite() {
 		return new TestSuite(LinkedListTest.class);
 	}
 
 	/**
-	 * Rigourous Test :-)
+	 * Rigourous Test
 	 */
 	public void testLinkedList() {
 		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
@@ -60,7 +58,7 @@ public class LinkedListTest
 			assertThat(l.lastIndexOf(a[i]), is(i));
 		}
 
-		// equals
+		// comparison
 		assertThat(l.equals(java.util.Arrays.asList(a)), is(true));
 
 		// remove
@@ -68,11 +66,13 @@ public class LinkedListTest
 			assertTrue(l.remove(a[i]));
 		assertTrue(l.isEmpty());
 
-		// add all
-		l.addAll(java.util.Arrays.asList(a));
+		// bulk
+		assertThat(l.addAll(java.util.Arrays.asList(a)), is(true));
+		assertThat(l.containsAll(java.util.Arrays.asList(a)), is(true));
+		assertThat(l.retainAll(java.util.Arrays.asList(a)), is(true));
 		assertThat(l.size(), is(a.length));
 
-		// iterators
+		// iterator
 		ListIterator<String> it1 = l.listIterator();
 		for (int i = 0; it1.hasNext(); i++)
 			assertThat(it1.next(), is(a[i]));

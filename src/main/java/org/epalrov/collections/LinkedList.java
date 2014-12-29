@@ -159,7 +159,8 @@ public class LinkedList<E> implements List<E>
 		ListNode<E> n = head;
 		for (int i = 0; i < size; i++) {
 			n = n.next;
-			if (o.equals(n.elem) || (o == null && n.elem == null)) {
+			if ((o != null && o.equals(n.elem)) ||
+					(o == null && n.elem == null)) {
 				n.next.prev = n.prev;
 				n.prev.next = n.next;
 				size--;
@@ -189,7 +190,8 @@ public class LinkedList<E> implements List<E>
 		ListNode<E> n = head;
 		for (int i = 0; i < size; i++) {
 			n = n.next;
-			if (o.equals(n.elem) || (o == null && n.elem == null))
+			if ((o != null && o.equals(n.elem)) ||
+					(o == null && n.elem == null))
 				return i;
 		}
 		return -1;
@@ -203,7 +205,8 @@ public class LinkedList<E> implements List<E>
 		ListNode<E> n = head;
 		for (int i = 0; i < size; i++) {
 			n = n.prev;
-			if (o.equals(n.elem) || (o == null && n.elem == null))
+			if ((o != null && o.equals(n.elem)) ||
+					(o == null && n.elem == null))
 				return size - 1 - i;
 		}
 		return -1;
@@ -218,7 +221,7 @@ public class LinkedList<E> implements List<E>
 	 * sequence.
 	 */
 	public Iterator<E> iterator() {
-		return new ListItr(0);
+		return new LinkedListIterator(0);
 	}
 
 	/**
@@ -226,7 +229,7 @@ public class LinkedList<E> implements List<E>
 	 * sequence.
 	 */
 	public ListIterator<E> listIterator() {
-		return new ListItr(0);
+		return new LinkedListIterator(0);
 	}
 
 	/**
@@ -234,16 +237,15 @@ public class LinkedList<E> implements List<E>
 	 * sequence), starting at the specified position in the list.
 	 */
 	public ListIterator<E> listIterator(int index) {
-		return new ListItr(index);
+		return new LinkedListIterator(index);
 	}
 
-	private class ListItr implements ListIterator<E> {
-
+	private class LinkedListIterator implements ListIterator<E> {
 		private ListNode<E> currNode;
 		private ListNode<E> nextNode;
 		private int nextIndex;
 
-		ListItr(int index) {
+		LinkedListIterator(int index) {
 			currNode = head;
 			nextNode = head;
 			if (index >= 0 && index < size/2) {
@@ -464,17 +466,18 @@ public class LinkedList<E> implements List<E>
 		if (!(o instanceof List))
 			return false;
 
-		// check all list elements
+		// check all elements
 		Iterator<E> i = iterator();
 		Iterator<?> j = ((List<?>) o).iterator();
 		while (i.hasNext() && j.hasNext()) {
 			E elem = i.next();
 			Object obj = j.next();
-			if (!(obj.equals(elem) || (obj == null && elem == null)))
+			if (!(obj != null && obj.equals(elem)) ||
+					(obj == null && elem == null))
 				return false;
 		}
 
-		// check list size
+		// check size
 		return !(i.hasNext() || j.hasNext());
 	}
 

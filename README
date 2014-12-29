@@ -1,4 +1,6 @@
-collections:    example of implementation for Java Collections.
+project:        Java Collections
+
+description:    Example of implementation for Java Collections.
 
                 Java Collections represents a unified framework for storing and
                 manipulating groups of object. This implementation offer a
@@ -24,14 +26,16 @@ collections:    example of implementation for Java Collections.
                 operations of inserting and removing elements, accessing them
                 by content and iterating over them.
 
-                A large variety of methods are inplemented, compliant to the
+                A large variety of methods are implemented, all compliant to the
                 interface of the standard Java Collection Framework (java.util):
-                 - java.util.List
                  - java.util.Set
                  - java.util.Map
+                 - java.util.List
                  - java.util.Collection
 
                 Finally it would be a good way to learn about Java Generics :-)
+
+build:          mvn install
 
 author:         Paolo Rovelli
 contact:        paolorovelli@yahoo.it
