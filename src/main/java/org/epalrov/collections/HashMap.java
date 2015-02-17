@@ -420,7 +420,8 @@ public class HashMap<K,V>  implements Map<K,V>
 
 	/**
 	 * Returns the hash code value for this map.  The hash code of a map is
-	 * defined to be the sum of the hash codes of each entry in the map's		 * <tt>entrySet()</tt> view.
+	 * defined to be the sum of the hash codes of each entry in the map's
+	 * <tt>entrySet()</tt> view.
 	 */
 	public int hashCode() {
 		int hash = 0;
