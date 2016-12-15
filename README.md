@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/epalrov/java-collections.svg?branch=master)](https://travis-ci.org/epalrov/java-collections)
+[![Code Coverage](https://codecov.io/gh/epalrov/java-collections/branch/master/graph/badge.svg)](https://codecov.io/gh/epalrov/java-collections)
 
 # java-collections
 

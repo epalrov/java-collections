@@ -5,13 +5,6 @@ jdk:
   - openjdk6
 
 sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 
-script:
-  - mvn test
-
-dist: trusty
-
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
