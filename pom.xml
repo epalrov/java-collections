@@ -4,16 +4,13 @@
 
   <groupId>org.eplarov.collections</groupId>
   <artifactId>java-collections</artifactId>
-  <version>1.0</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
-
   <name>java-collections</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/epalrov/java-collections</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.5</maven.compiler.source>
-    <maven.compiler.target>1.5</maven.compiler.target>
   </properties>
 
   <dependencies>
