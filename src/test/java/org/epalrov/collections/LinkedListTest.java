@@ -42,12 +42,15 @@ public class LinkedListTest extends TestCase
 	 * Rigourous Test
 	 */
 	public void testLinkedList() {
-		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
+		String[] a = {
+			"paolo", "love", "valeria", ":", "i", "mimmi", "bimbi"
+		};
 		List<String> l = new LinkedList<String>();
 
 		// add
 		for (int i = 0; i < a.length; i++)
 			assertTrue(l.add(a[i]));
+		assertFalse(l.isEmpty());
 		assertThat(l.size(), is(a.length));
 
 		// search
@@ -71,6 +74,10 @@ public class LinkedListTest extends TestCase
 		assertThat(l.containsAll(java.util.Arrays.asList(a)), is(true));
 		assertThat(l.retainAll(java.util.Arrays.asList(a)), is(true));
 		assertThat(l.size(), is(a.length));
+		assertThat(l.removeAll(java.util.Arrays.asList(a)), is(true));
+		assertThat(l.size(), is(0));
+		assertThat(l.addAll(0, java.util.Arrays.asList(a)), is(true));
+		assertThat(l.size(), is(a.length));
 
 		// iterator
 		ListIterator<String> it1 = l.listIterator();
@@ -79,6 +86,10 @@ public class LinkedListTest extends TestCase
 		ListIterator<String> it2 = l.listIterator(l.size());
 		for (int i = a.length - 1; it2.hasPrevious(); i--)
 			assertThat(it2.previous(), is(a[i]));
+
+		// clear
+                l.clear();
+		assertTrue(l.isEmpty());
 	}
 
 }

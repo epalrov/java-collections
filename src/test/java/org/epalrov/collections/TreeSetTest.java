@@ -41,7 +41,9 @@ public class TreeSetTest extends TestCase
 	 * Rigourous Test
 	 */
 	public void testTreeSet() {
-		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
+		String[] a = {
+			"paolo", "love", "valeria", ":", "i", "mimmi", "bimbi"
+		};
 		Set<String> s = new TreeSet<String>();
 
 		// add

@@ -41,7 +41,9 @@ public class HashMapTest extends TestCase
 	 * Rigourous Test
 	 */
 	public void testHashMap() {
-		String[] a = { "Hello", "Mr.", "Paolo", "Rovelli" };
+		String[] a = {
+			"paolo", "love", "valeria", ":", "i", "mimmi", "bimbi"
+		};
 		Map<Integer,String> h = new HashMap<Integer,String>(3);
 
 		// add

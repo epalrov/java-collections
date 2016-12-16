@@ -328,6 +328,7 @@ public class ArrayList<E> implements List<E>
 			arrayResize(size + 1);
 			arrayInsert(index, 1);
 			array[index] = (E)i.next();
+			index++;
 			size++;
 		}
 		return true;
@@ -337,12 +338,13 @@ public class ArrayList<E> implements List<E>
 	 * Removes from this list all of its elements that are contained in the
 	 * specified collection.
 	 */
-	public boolean removeAll(Collection<? extends Object> c) {
+	public boolean removeAll(Collection<?> c) {
 		for (int i = 0; i < size; i++) {
 			if (c.contains(array[i])) {
 				arrayRemove(i, 1);
 				arrayResize(size - 1);
 				size--;
+				i--;
 			}
 		}
 		return true;
@@ -358,6 +360,7 @@ public class ArrayList<E> implements List<E>
 				arrayRemove(i, 1);
 				arrayResize(size - 1);
 				size--;
+				i--;
 			}
 		}
 		return true;

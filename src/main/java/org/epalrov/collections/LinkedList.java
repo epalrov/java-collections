@@ -414,9 +414,9 @@ public class LinkedList<E> implements List<E>
 	 * Removes from this list all of its elements that are contained in the
 	 * specified collection.
 	 */
-	public boolean removeAll(Collection<? extends Object> c) {
+	public boolean removeAll(Collection<?> c) {
 		ListNode<E> n = head;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0, count = size; i < count; i++) {
 			n = n.next;
 			if (c.contains(n.elem)) {
 				n.next.prev = n.prev;
@@ -433,7 +433,7 @@ public class LinkedList<E> implements List<E>
 	 */
 	public boolean retainAll(Collection<?> c) {
 		ListNode<E> n = head;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0, count = size; i < count; i++) {
 			n = n.next;
 			if (!c.contains(n.elem)) {
 				n.next.prev = n.prev;
